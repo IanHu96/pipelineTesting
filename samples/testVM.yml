@@ -10,25 +10,30 @@ stages:
   - job: Validate
     steps:
     - checkout: self
+    - script: echo Hello, world!
+      displayName: 'One-liner Script'
+    - script: echo 'This is the file' > myfile.txt
+      displayName: 'Run something'
 
-  - job: ActivityonWindowsVM
-    pool:
-    name: Default
-      - task: PowerShell@2
-     inputs:
-       targetType: 'inline'
-       script: |
-         # Write your PowerShell commands here.
+  # - job: ActivityonWindowsVM
+  #   pool:
+  #   name: Default
+  #     - task: PowerShell@2
+  #    inputs:
+  #      targetType: 'inline'
+  #      script: |
+  #        # Write your PowerShell commands here.
          
-         Write-Host "Hello World"
+  #        Write-Host "Hello World"
 
-- stage: Build
-     - task: VSBuild@1
-      inputs:
-        solution: '$(solution)'
-        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
+# - stage: Build
+#      - task: VSBuild@1
+#       inputs:
+#         solution: '$(solution)'
+#         msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+#         platform: '$(buildPlatform)'
+#         configuration: '$(buildConfiguration)'
+
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
