@@ -12,10 +12,9 @@ stages:
     - checkout: self
 
   - job: ActivityonWindowsVM
-  pool:
-   name: Default
-  steps:
-   - task: PowerShell@2
+    pool:
+    name: Default
+      - task: PowerShell@2
      inputs:
        targetType: 'inline'
        script: |
