@@ -6,6 +6,7 @@ pool:
 
 stages:
 - stage: Validate
+  displayName: Validate
   jobs:
   - job: Validate
     steps:
@@ -40,23 +41,23 @@ stages:
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
-- stage: Release
-  displayName: Release
- 
-  jobs:
-  - deployment:
-    displayName: Releasing to VM
-    environment: 
-        name: #tobefilled
-        resourceType: VirtualMachine
-        resourceName: 
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: CopyFiles@2
-            inputs:  
-              SourceFolder: '$(Agent.WorkFolder)\1\drop'
-              Contents: '**\*.zip'
-              OverWrite: true
-              TargetFolder: 'C:\QA\' #tobefilled
+# - stage: Release
+#   displayName: Releasing
+#   jobs:
+#   - job:
+#   - deployment:
+#     displayName: Releasing to VM
+#     environment: 
+#         name: #tobefilled
+#         resourceType: VirtualMachine
+#         resourceName: 
+#     strategy:
+#       runOnce:
+#         deploy:
+#           steps:
+#           - task: CopyFiles@2
+#             inputs:  
+#               SourceFolder: '$(Agent.WorkFolder)\1\drop'
+#               Contents: '**\*.zip'
+#               OverWrite: true
+#               TargetFolder: 'C:\QA\' #tobefilled
