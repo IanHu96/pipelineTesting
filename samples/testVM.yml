@@ -41,23 +41,23 @@ stages:
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
-# - stage: Release
-#   displayName: Releasing
-#   jobs:
-#   - job:
-#   - deployment:
-#     displayName: Releasing to VM
-#     environment: 
-#         name: #tobefilled
-#         resourceType: VirtualMachine
-#         resourceName: 
-#     strategy:
-#       runOnce:
-#         deploy:
-#           steps:
-#           - task: CopyFiles@2
-#             inputs:  
-#               SourceFolder: '$(Agent.WorkFolder)\1\drop'
-#               Contents: '**\*.zip'
-#               OverWrite: true
-#               TargetFolder: 'C:\QA\' #tobefilled
+ - stage: Release
+   displayName: Releasing
+   jobs:
+   - job:
+   - deployment:
+     displayName: Releasing to VM
+     environment: 
+         name: test
+         resourceType: VirtualMachine
+         resourceName: azurepoc
+     strategy:
+       runOnce:
+         deploy:
+           steps:
+           - task: CopyFiles@2
+             inputs:  
+               SourceFolder: '$(Agent.WorkFolder)\1\drop'
+               Contents: '**\*.zip'
+               OverWrite: true
+              TargetFolder: '/home/azurepoc/' 
